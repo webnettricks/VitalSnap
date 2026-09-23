@@ -104,7 +104,7 @@ final class ParserTests: XCTestCase {
     func testIgnoresImplausibleWeight() {
         XCTAssertNil(WeightParser.parse(lines: lines(["4.2 kg"])))
         XCTAssertNil(WeightParser.parse(lines: lines(["12:41"])))
-        XCTAssertNil(WeightParser.parse(lines: lines([])))
+        XCTAssertNil(WeightParser.parse(lines: []))
     }
 
     func testUpperReadingWinsWhenBothUnitsArePrinted() {
