@@ -66,14 +66,22 @@ final class HealthStoreService {
     }
 
     private func isDenied(for kind: ReadingKind) -> Bool {
-        let type: HKObjectType
         switch kind {
         case .weight:
-            type = HKQuantityType(.bodyMass)
+            return store.authorizationStatus(for: HKQuantityType(.bodyMass)) == .sharingDenied
         case .bloodPressure:
-            type = HKCorrelationType(.bloodPressure)
+            // authorizationStatus(for:) always reports sharingDenied for an
+            // HKCorrelationType, even after the person allows blood pressure.
+            // The systolic and diastolic quantity types carry the real status.
+            let systolic = HKQuantityType(.bloodPressureSystolic)
+            let diastolic = HKQuantityType(.bloodPressureDiastolic)
+            return store.authorizationStatus(for: systolic) == .sharingDenied
+                || store.authorizationStatus(for: diastolic) == .sharingDenied
         }
-        return store.authorizationStatus(for: type) == .sharingDenied
+    }
+
+    private var canShareHeartRate: Bool {
+        store.authorizationStatus(for: HKQuantityType(.heartRate)) != .sharingDenied
     }
 
     private func saveWeight(_ value: Double, unit: MassUnit, date: Date) async throws {
@@ -114,16 +122,20 @@ final class HealthStoreService {
         )
         try await store.save(correlation)
 
-        if let pulse {
-            let beatsPerMinute = HKUnit.count().unitDivided(by: .minute())
-            let heartRate = HKQuantitySample(
-                type: HKQuantityType(.heartRate),
-                quantity: HKQuantity(unit: beatsPerMinute, doubleValue: pulse),
-                start: date,
-                end: date,
-                metadata: metadata
-            )
+        guard let pulse, canShareHeartRate else { return }
+        let beatsPerMinute = HKUnit.count().unitDivided(by: .minute())
+        let heartRate = HKQuantitySample(
+            type: HKQuantityType(.heartRate),
+            quantity: HKQuantity(unit: beatsPerMinute, doubleValue: pulse),
+            start: date,
+            end: date,
+            metadata: metadata
+        )
+        do {
             try await store.save(heartRate)
+        } catch {
+            // The blood pressure correlation is already saved. A pulse failure
+            // should not make the confirmed reading look unsaved.
         }
     }
 }

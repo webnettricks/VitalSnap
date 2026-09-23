@@ -75,15 +75,15 @@ final class CameraSession: NSObject, ObservableObject {
         return try await withCheckedThrowingContinuation { continuation in
             queue.async { [weak self] in
                 guard let self else {
-                    continuation.resume(throwing: CameraError.unavailable)
+                    Self.resume(continuation, with: .failure(CameraError.unavailable))
                     return
                 }
                 guard self.isConfigured else {
-                    continuation.resume(throwing: CameraError.unavailable)
+                    Self.resume(continuation, with: .failure(CameraError.unavailable))
                     return
                 }
                 if let existing = self.continuation {
-                    existing.resume(throwing: CameraError.unavailable)
+                    Self.resume(existing, with: .failure(CameraError.unavailable))
                 }
                 let settings = AVCapturePhotoSettings()
                 if self.photoOutput.supportedFlashModes.contains(.off) {
@@ -94,6 +94,19 @@ final class CameraSession: NSObject, ObservableObject {
                 }
                 self.continuation = continuation
                 self.photoOutput.capturePhoto(with: settings, delegate: self)
+            }
+        }
+    }
+
+    /// Photo callbacks arrive on the session queue. Resume on the main queue so
+    /// SwiftUI can install the review screen's buttons.
+    private static func resume(_ continuation: CheckedContinuation<UIImage, Error>, with result: Result<UIImage, Error>) {
+        DispatchQueue.main.async {
+            switch result {
+            case .success(let image):
+                continuation.resume(returning: image)
+            case .failure(let error):
+                continuation.resume(throwing: error)
             }
         }
     }
@@ -139,15 +152,16 @@ extension CameraSession: AVCapturePhotoCaptureDelegate {
             guard let self else { return }
             let continuation = self.continuation
             self.continuation = nil
+            guard let continuation else { return }
             if let error {
-                continuation?.resume(throwing: error)
+                Self.resume(continuation, with: .failure(error))
                 return
             }
             guard let data = photo.fileDataRepresentation(), let image = UIImage(data: data) else {
-                continuation?.resume(throwing: CameraError.noPhoto)
+                Self.resume(continuation, with: .failure(CameraError.noPhoto))
                 return
             }
-            continuation?.resume(returning: image)
+            Self.resume(continuation, with: .success(image))
         }
     }
 }
