@@ -155,11 +155,149 @@ final class ParserTests: XCTestCase {
         XCTAssertNil(BloodPressureParser.parse(lines: lines(["12/31/2024"])))
         XCTAssertNil(BloodPressureParser.parse(lines: lines(["70/120"])))
         XCTAssertNil(BloodPressureParser.parse(lines: lines(["No reading"])))
+        XCTAssertNil(BloodPressureParser.parse(lines: lines(["SYS"])))
+        XCTAssertNil(BloodPressureParser.parse(lines: lines(["120"])))
+        XCTAssertNil(BloodPressureParser.parse(lines: lines(["99", "98"])))
+        XCTAssertNil(BloodPressureParser.parse(lines: lines(["300/200"])))
+        XCTAssertNil(BloodPressureParser.parse(lines: lines([
+            "Please write down that the old note mentioned 120 or maybe 80 yesterday",
+        ])))
 
         let optionalPulse = BloodPressureParser.parse(lines: lines(["120/80"]))
         XCTAssertEqual(optionalPulse?.systolic, 120)
         XCTAssertEqual(optionalPulse?.diastolic, 80)
         XCTAssertNil(optionalPulse?.pulse)
+    }
+
+    func testBloodPressureCuffOCRMesses() {
+        let lookalikeSlash = BloodPressureParser.parse(lines: lines(["12B/B2", "PUL 74"]))
+        XCTAssertEqual(lookalikeSlash?.systolic, 128)
+        XCTAssertEqual(lookalikeSlash?.diastolic, 82)
+        XCTAssertEqual(lookalikeSlash?.pulse, 74)
+
+        let letters = BloodPressureParser.parse(lines: lines(["1O8", "B6", "7S"]))
+        XCTAssertEqual(letters?.systolic, 108)
+        XCTAssertEqual(letters?.diastolic, 86)
+        XCTAssertEqual(letters?.pulse, 75)
+
+        let misreadLabels = BloodPressureParser.parse(lines: lines(["5Y5", "12B", "D1A", "B2", "PU1", "7I"]))
+        XCTAssertEqual(misreadLabels?.systolic, 128)
+        XCTAssertEqual(misreadLabels?.diastolic, 82)
+        XCTAssertEqual(misreadLabels?.pulse, 71)
+
+        let slashAsLetter = BloodPressureParser.parse(lines: lines(["128I82"]))
+        XCTAssertEqual(slashAsLetter?.systolic, 128)
+        XCTAssertEqual(slashAsLetter?.diastolic, 82)
+        XCTAssertNil(slashAsLetter?.pulse)
+
+        let slashAsBar = BloodPressureParser.parse(lines: lines(["118|76", "HR 66"]))
+        XCTAssertEqual(slashAsBar?.systolic, 118)
+        XCTAssertEqual(slashAsBar?.diastolic, 76)
+        XCTAssertEqual(slashAsBar?.pulse, 66)
+
+        let glued = BloodPressureParser.parse(lines: lines(["12882"]))
+        XCTAssertEqual(glued?.systolic, 128)
+        XCTAssertEqual(glued?.diastolic, 82)
+        XCTAssertNil(glued?.pulse)
+
+        let gluedPulse = BloodPressureParser.parse(lines: lines(["1288274"]))
+        XCTAssertEqual(gluedPulse?.systolic, 128)
+        XCTAssertEqual(gluedPulse?.diastolic, 82)
+        XCTAssertEqual(gluedPulse?.pulse, 74)
+
+        let gluedWithTrailingPulse = BloodPressureParser.parse(lines: lines(["12080", "64"]))
+        XCTAssertEqual(gluedWithTrailingPulse?.systolic, 120)
+        XCTAssertEqual(gluedWithTrailingPulse?.diastolic, 80)
+        XCTAssertEqual(gluedWithTrailingPulse?.pulse, 64)
+
+        let header = BloodPressureParser.parse(lines: lines(["SYS", "DIA", "PUL", "128", "82", "74"]))
+        XCTAssertEqual(header?.systolic, 128)
+        XCTAssertEqual(header?.diastolic, 82)
+        XCTAssertEqual(header?.pulse, 74)
+
+        let numbersThenLabels = BloodPressureParser.parse(lines: lines(["128", "82", "SYS", "DIA"]))
+        XCTAssertEqual(numbersThenLabels?.systolic, 128)
+        XCTAssertEqual(numbersThenLabels?.diastolic, 82)
+        XCTAssertNil(numbersThenLabels?.pulse)
+
+        let labeledWithoutPulse = BloodPressureParser.parse(lines: lines(["SYS 118", "DIA 76"]))
+        XCTAssertEqual(labeledWithoutPulse?.systolic, 118)
+        XCTAssertEqual(labeledWithoutPulse?.diastolic, 76)
+        XCTAssertNil(labeledWithoutPulse?.pulse)
+
+        let gluedLabels = BloodPressureParser.parse(lines: lines(["SYS128", "DIA82", "PUL74"]))
+        XCTAssertEqual(gluedLabels?.systolic, 128)
+        XCTAssertEqual(gluedLabels?.diastolic, 82)
+        XCTAssertEqual(gluedLabels?.pulse, 74)
+
+        let mercury = BloodPressureParser.parse(lines: lines(["135", "mmHg", "86", "mmHg"]))
+        XCTAssertEqual(mercury?.systolic, 135)
+        XCTAssertEqual(mercury?.diastolic, 86)
+        XCTAssertNil(mercury?.pulse)
+
+        let triple = BloodPressureParser.parse(lines: lines(["118/76/70"]))
+        XCTAssertEqual(triple?.systolic, 118)
+        XCTAssertEqual(triple?.diastolic, 76)
+        XCTAssertEqual(triple?.pulse, 70)
+
+        let shortLabels = BloodPressureParser.parse(lines: lines(["SBP 122", "DBP 78", "HR 60"]))
+        XCTAssertEqual(shortLabels?.systolic, 122)
+        XCTAssertEqual(shortLabels?.diastolic, 78)
+        XCTAssertEqual(shortLabels?.pulse, 60)
+
+        let trailingZeros = BloodPressureParser.parse(lines: lines(["128.0", "82.0", "PULSE 74"]))
+        XCTAssertEqual(trailingZeros?.systolic, 128)
+        XCTAssertEqual(trailingZeros?.diastolic, 82)
+        XCTAssertEqual(trailingZeros?.pulse, 74)
+
+        XCTAssertNil(BloodPressureParser.parse(lines: lines([
+            "The serial number printed on the box was 12882 and nothing else really",
+        ])))
+        XCTAssertNil(BloodPressureParser.parse(lines: lines(["12345678"])))
+    }
+
+    func testBloodPressureColumnsAndProminentDigits() {
+        let scrambled = BloodPressureParser.parse(lines: [
+            RecognizedLine(text: "82", confidence: 0.9, x: 0.62, y: 0.72, width: 0.22, height: 0.16),
+            RecognizedLine(text: "SYS", confidence: 0.8, x: 0.12, y: 0.40, width: 0.16, height: 0.05),
+            RecognizedLine(text: "128", confidence: 0.95, x: 0.10, y: 0.22, width: 0.28, height: 0.18),
+            RecognizedLine(text: "DIA", confidence: 0.8, x: 0.64, y: 0.40, width: 0.16, height: 0.05),
+        ])
+        XCTAssertEqual(scrambled?.systolic, 128)
+        XCTAssertEqual(scrambled?.diastolic, 82)
+        XCTAssertNil(scrambled?.pulse)
+
+        let prominent = BloodPressureParser.parse(lines: [
+            RecognizedLine(text: "110", confidence: 0.7, x: 0.7, y: 0.9, width: 0.08, height: 0.03),
+            RecognizedLine(text: "70", confidence: 0.7, x: 0.7, y: 0.84, width: 0.08, height: 0.03),
+            RecognizedLine(text: "148", confidence: 0.95, x: 0.2, y: 0.46, width: 0.5, height: 0.22),
+            RecognizedLine(text: "92", confidence: 0.95, x: 0.24, y: 0.18, width: 0.4, height: 0.16),
+        ])
+        XCTAssertEqual(prominent?.systolic, 148)
+        XCTAssertEqual(prominent?.diastolic, 92)
+        XCTAssertNil(prominent?.pulse)
+    }
+
+    func testEmptyBloodPressureDraftStaysEditable() {
+        let capturedAt = Date(timeIntervalSince1970: 0)
+        let empty = ReadingDraft.make(kind: .bloodPressure, lines: [], capturedAt: capturedAt)
+        XCTAssertEqual(empty.systolicText, "")
+        XCTAssertEqual(empty.diastolicText, "")
+        XCTAssertEqual(empty.pulseText, "")
+        XCTAssertTrue(empty.warnings.contains { $0.contains("systolic") && $0.contains("diastolic") })
+        XCTAssertTrue(empty.note.contains("Type"))
+        XCTAssertFalse(ReadingValidator.validate(empty).canSave)
+
+        var typed = empty
+        typed.systolicText = "118"
+        typed.diastolicText = "76"
+        XCTAssertTrue(ReadingValidator.validate(typed).canSave)
+        XCTAssertEqual(typed.summary, "118/76 mmHg")
+
+        let unread = ReadingDraft.make(kind: .bloodPressure, lines: lines(["battery"]), capturedAt: capturedAt)
+        XCTAssertEqual(unread.systolicText, "")
+        XCTAssertTrue(unread.warnings.contains { $0.contains("Type") })
+        XCTAssertFalse(ReadingValidator.validate(unread).canSave)
     }
 
     func testCrossTypeWarnings() {

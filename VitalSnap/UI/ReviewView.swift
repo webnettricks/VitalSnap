@@ -170,13 +170,20 @@ struct ReviewView: View {
             }
         case .bloodPressure:
             VStack(spacing: 14) {
+                if draft.systolicText.isEmpty && draft.diastolicText.isEmpty {
+                    Text("Type the top number (systolic) and the lower number (diastolic). Pulse can stay blank.")
+                        .font(.subheadline)
+                        .foregroundStyle(Theme.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
-                    ReadingValueField(placeholder: "120", text: $draft.systolicText, accessibilityLabel: "Systolic")
+                    ReadingValueField(placeholder: "SYS", text: $draft.systolicText, accessibilityLabel: "Systolic")
                         .focused($focused)
                     Text("/")
                         .font(.system(size: 40, weight: .light, design: .rounded))
                         .foregroundStyle(Theme.secondary)
-                    ReadingValueField(placeholder: "80", text: $draft.diastolicText, accessibilityLabel: "Diastolic")
+                    ReadingValueField(placeholder: "DIA", text: $draft.diastolicText, accessibilityLabel: "Diastolic")
                 }
                 Text("mmHg")
                     .font(.subheadline.weight(.semibold))

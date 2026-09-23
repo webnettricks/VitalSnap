@@ -76,9 +76,11 @@ Weight:
 
 Blood pressure:
 
-- `128/82` or `118 over 76`
-- `SYS` / `DIA` / `PULSE` labels, including digits on the following line or the line above
-- A stack of large digits when labels are missing
+- `128/82`, `118 over 76`, or a slash the camera read as `I` or `|`
+- Digits stuck together when the slash is missing, such as `12882` or `1288274`
+- `SYS` / `DIA` / `PULSE` labels, including a header row (`SYS` `DIA` `PUL` above `128` `82` `74`), digits on the next line, or side-by-side columns
+- Seven-segment mix-ups such as `O`/`0`, `B`/`8`, `S`/`5`, `G`/`6`, and `I`/`1` inside a number, plus label mix-ups such as `5Y5` or `D1A`
+- A stack of large digits when labels are missing. Smaller debris is ignored when the big digits are visibly taller
 
 Lines that look like a clock, BMI, body fat, or a percentage are ignored. If the unit is missing, a weight of 120 or more is treated as pounds and a lighter number as kilograms, and the confirm screen asks you to check the unit. Switching pounds and kilograms converts the value.
 
@@ -96,7 +98,7 @@ Choosing an existing photo uses the system photo picker and does not request pho
 
 ## Known limitations
 
-- Glare, odd fonts, and seven-segment digits still defeat Vision sometimes. The confirm screen is the check. You can type the numbers with no photo.
+- Glare and odd fonts still defeat Vision sometimes. If the first read does not parse, VitalSnap retries a higher-contrast image, a sharpened image, and an inverted image. The confirm screen is still the check. You can type the numbers with no photo.
 - Parsers will not understand every brand. Extend `WeightParser` and `BloodPressureParser` in `Packages/VitalSnapCore` when you have a transcript that fails. `swift test` covers the layouts already handled.
 - The local list is only a reminder of what you confirmed. Deleting a row does not delete the Apple Health sample.
 - Saving again writes a new Health sample. It does not edit the previous one.
