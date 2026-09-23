@@ -74,14 +74,14 @@ struct CaptureView: View {
                     showsSettings: false
                 )
             case .unknown:
-                ProgressView("Waiting for camera access\u2026")
+                ProgressView("Waiting for camera access…")
                     .tint(.white)
                     .foregroundStyle(.white)
             }
 
             if isWorking {
                 Color.black.opacity(0.45).ignoresSafeArea()
-                ProgressView("Reading the display\u2026")
+                ProgressView("Reading the display…")
                     .padding(24)
                     .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             }
@@ -260,7 +260,7 @@ struct CaptureView: View {
                 .padding(.horizontal, 12)
             Spacer()
             if !reading.savedToHealth && model.health.isAvailable {
-                PrimaryButton(title: isSaving ? "Saving\u2026" : "Try Apple Health again", isEnabled: !isSaving) {
+                PrimaryButton(title: isSaving ? "Saving…" : "Try Apple Health again", isEnabled: !isSaving) {
                     Task { await retryHealth(reading) }
                 }
             }
