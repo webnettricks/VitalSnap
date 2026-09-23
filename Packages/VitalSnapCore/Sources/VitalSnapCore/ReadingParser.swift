@@ -75,14 +75,21 @@ public enum ReadingParser {
         }
 
         if warnings.isEmpty {
-            warnings.append("No blood pressure was found. Type the numbers shown on the cuff.")
+            if rawText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                warnings.append("No digits were found. Type the systolic and diastolic numbers from the cuff.")
+            } else {
+                warnings.append("No blood pressure was found. Type the systolic and diastolic numbers shown on the cuff.")
+            }
         }
+        let note = rawText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            ? "Nothing was read from the photo. Type both blood pressure numbers below."
+            : "No blood pressure could be read from the photo."
         return ParseResult(
             weight: nil,
             bloodPressure: nil,
             warnings: warnings,
             rawText: rawText,
-            note: "No blood pressure could be read from the photo."
+            note: note
         )
     }
 }

@@ -12,12 +12,20 @@ enum DisplayText {
         text = String(text.map { fullwidthFold[$0] ?? $0 })
         text = text.replacingOccurrences(of: "／", with: "/")
         text = text.replacingOccurrences(of: "∕", with: "/")
+        text = text.replacingOccurrences(of: "•", with: "/")
+        text = text.replacingOccurrences(of: "·", with: "/")
+        // Unit words before digit repair, so "1b" stays "lb" instead of becoming 18.
         text = replacing(text, pattern: #"(?i)\b1bs\b"#, with: "lbs")
         text = replacing(text, pattern: #"(?i)\bibs\b"#, with: "lbs")
         text = replacing(text, pattern: #"(?i)\b1b\b"#, with: "lb")
         text = replacing(text, pattern: #"(?i)\blb5\b"#, with: "lbs")
         text = replacing(text, pattern: #"(?i)\bk9\b"#, with: "kg")
         text = replacing(text, pattern: #"(?i)\bkq\b"#, with: "kg")
+        // Labels before digit repair, so "D1A" stays DIA instead of becoming 01A.
+        text = repairBloodPressureLabels(text)
+        text = replacing(text, pattern: #"(?<=\d{2})\s*[Il|]\s*(?=\d{2})"#, with: "/")
+        text = replacing(text, pattern: #"(?<=\d)[.,]0+(?!\d)"#, with: "")
+        text = replacing(text, pattern: #"(?<=\d)[.,]+(?!\d)"#, with: "")
 
         let pieces = text.split(whereSeparator: \.isWhitespace).map { repairToken(String($0)) }
         return pieces.joined(separator: " ")
@@ -114,18 +122,93 @@ enum DisplayText {
         }
     }
 
+    /// Seven-segment LCDs share shapes with a handful of letters. Only tokens that
+    /// already contain a digit are rewritten, and only when every other character
+    /// is one of those shapes, so words such as SYS are left alone.
+    private static let digitLookalikes: [Character: Character] = [
+        "O": "0", "o": "0", "Q": "0", "D": "0", "Ø": "0",
+        "I": "1", "l": "1", "|": "1",
+        "Z": "2", "z": "2",
+        "S": "5", "s": "5",
+        "G": "6", "b": "6",
+        "B": "8",
+        "g": "9", "q": "9",
+    ]
+
+    private static func repairBloodPressureLabels(_ text: String) -> String {
+        var text = text
+        text = replacing(text, pattern: #"(?i)(?<![A-Za-z])[s5][y¥][s5](?![A-Za-z])"#, with: "SYS")
+        text = replacing(text, pattern: #"(?i)(?<![A-Za-z])d[i1l|]a(?:stolic)?(?![A-Za-z])"#, with: "DIA")
+        text = replacing(text, pattern: #"(?i)(?<![A-Za-z])d[i1l|]as(?![A-Za-z])"#, with: "DIA")
+        text = replacing(text, pattern: #"(?i)(?<![A-Za-z])p[uµ][l1|][s5]e(?![A-Za-z])"#, with: "PULSE")
+        text = replacing(text, pattern: #"(?i)(?<![A-Za-z])p[uµ][l1|](?![A-Za-z])"#, with: "PUL")
+        text = replacing(text, pattern: #"(?i)(?<![A-Za-z])mm\s*h[gq9](?![A-Za-z])"#, with: "mmHg")
+        return text
+    }
+
     private static func repairToken(_ token: String) -> String {
-        let digits = token.filter(\.isNumber)
-        guard !digits.isEmpty else { return token }
-        let letters = token.filter(\.isLetter)
-        guard !letters.isEmpty, letters.allSatisfy({ "OoIl".contains($0) }) else { return token }
-        return String(token.map { character in
-            switch character {
-            case "O", "o": return "0"
-            case "I", "l": return "1"
-            default: return character
+        guard token.contains(where: \.isNumber) else { return token }
+        guard token.allSatisfy(isRepairCharacter) else { return token }
+        let chars = Array(token)
+        var repaired = ""
+        for (index, character) in chars.enumerated() {
+            if isSlashLookalike(character), separatesDigitRuns(chars, at: index) {
+                repaired.append("/")
+            } else if let mapped = digitLookalikes[character] {
+                repaired.append(mapped)
+            } else {
+                repaired.append(character)
             }
-        })
+        }
+        var candidate = repaired
+        while candidate.count > 1, let last = candidate.last, last == "," || last == "." {
+            if isNumericToken(candidate) { break }
+            candidate.removeLast()
+        }
+        guard isNumericToken(candidate) else { return token }
+        return candidate
+    }
+
+    private static func isRepairCharacter(_ character: Character) -> Bool {
+        character.isNumber
+            || character == "."
+            || character == ","
+            || character == "/"
+            || digitLookalikes[character] != nil
+    }
+
+    private static func isSlashLookalike(_ character: Character) -> Bool {
+        character == "I" || character == "l" || character == "|"
+    }
+
+    /// A single I, l, or bar between two 2–3 digit runs is the slash Vision missed.
+    /// A lookalike sitting inside one number, as in "1I8", stays a digit.
+    private static func separatesDigitRuns(_ chars: [Character], at index: Int) -> Bool {
+        guard index > 0, index < chars.count - 1 else { return false }
+        let left = digitRunLength(chars, from: index - 1, step: -1)
+        let right = digitRunLength(chars, from: index + 1, step: 1)
+        return (2...3).contains(left) && (2...3).contains(right)
+    }
+
+    private static func digitRunLength(_ chars: [Character], from start: Int, step: Int) -> Int {
+        var index = start
+        var count = 0
+        while index >= 0, index < chars.count, isDigitSide(chars[index]) {
+            count += 1
+            index += step
+        }
+        return count
+    }
+
+    private static func isDigitSide(_ character: Character) -> Bool {
+        character.isNumber || (digitLookalikes[character] != nil && !isSlashLookalike(character))
+    }
+
+    private static func isNumericToken(_ text: String) -> Bool {
+        text.range(
+            of: #"^\d{1,4}(?:[.,]\d{1,2})?(?:/\d{1,4}(?:[.,]\d{1,2})?){0,2}$"#,
+            options: .regularExpression
+        ) != nil
     }
 
     private static let fullwidthFold: [Character: Character] = [
