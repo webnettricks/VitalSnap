@@ -1,0 +1,465 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1030666ED19FDEADFB1822D0 /* VitalSnapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BA6CD8B66709DA2BA5A509 /* VitalSnapApp.swift */; };
+		07056C13168604436A09F57A /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54250B0E16E8FD49A02F9AF /* AppModel.swift */; };
+		158D68EB14CA1937CC78166F /* CameraSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3718B97459052CFF6B43CFE /* CameraSession.swift */; };
+		A90CEFC830129C988020AA7E /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B68A6483DBA69BF50B742A /* CameraPreview.swift */; };
+		F34A62373FDC3223FCD35B84 /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C77F2CCA98137C77D95542D /* TextRecognizer.swift */; };
+		99F5B7B0F0FA6DA5D95BACB9 /* HealthStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53504546E6F01CDB966B4B9 /* HealthStoreService.swift */; };
+		C6384C23B74F8188822C7C5B /* ReadingLogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2211F4D150C214300A96C0E /* ReadingLogStore.swift */; };
+		BF60D2E1309E5A3A77239E2E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D605DA520EFD186F896CEAA /* Theme.swift */; };
+		8751EFBB1671B92531A4582C /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB664E94D6BF6CA05C0F3C8 /* Components.swift */; };
+		A4A03E9A8BF7FD5512F32211 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B6AD96DF28B18CB73834D9 /* RootView.swift */; };
+		700E72EEA3A494CBCD4A50A3 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A95F0A160501BAE9F31D81 /* OnboardingView.swift */; };
+		0FD1AE1EE414C92080517360 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91D1D2E2A09F013789DC91 /* HomeView.swift */; };
+		EB93203B6177B83315AEF336 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C523DE8B4A21AC5B623A8ECD /* ReviewView.swift */; };
+		59640E087B58293C5B20E3F6 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735F9485D44C7F33A933A7B2 /* CaptureView.swift */; };
+		DB249DB9D0FF833647E29581 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31622F5DB5AF44890238D799 /* Assets.xcassets */; };
+		7506060A154BFBC166F7764F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7C9E2B87D7A18ED7042C360B /* PrivacyInfo.xcprivacy */; };
+		F0831D1F32DE18A152C1710B /* VitalSnapCore in Frameworks */ = {isa = PBXBuildFile; productRef = BD44A0773A5C71948B0D4A7B /* VitalSnapCore */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		95BA6CD8B66709DA2BA5A509 /* VitalSnapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitalSnapApp.swift; sourceTree = "<group>"; };
+		B54250B0E16E8FD49A02F9AF /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		D3718B97459052CFF6B43CFE /* CameraSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSession.swift; sourceTree = "<group>"; };
+		29B68A6483DBA69BF50B742A /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+		3C77F2CCA98137C77D95542D /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
+		A53504546E6F01CDB966B4B9 /* HealthStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthStoreService.swift; sourceTree = "<group>"; };
+		B2211F4D150C214300A96C0E /* ReadingLogStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingLogStore.swift; sourceTree = "<group>"; };
+		6D605DA520EFD186F896CEAA /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		4CB664E94D6BF6CA05C0F3C8 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		74B6AD96DF28B18CB73834D9 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		72A95F0A160501BAE9F31D81 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		3B91D1D2E2A09F013789DC91 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		C523DE8B4A21AC5B623A8ECD /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
+		735F9485D44C7F33A933A7B2 /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
+		31622F5DB5AF44890238D799 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		06CABE0B2A16903D10B9D8EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7C9E2B87D7A18ED7042C360B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		8D112346025269318A39D73A /* VitalSnap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VitalSnap.entitlements; sourceTree = "<group>"; };
+		8F130059427912E2BD061561 /* VitalSnap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VitalSnap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		424153ED3CD079DB4DB459AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0831D1F32DE18A152C1710B /* VitalSnapCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B9340614599AB78F485950C7 = {
+			isa = PBXGroup;
+			children = (
+				82CF2A43A7100F086D7FCFDD /* VitalSnap */,
+				547D009064F7C3F13BEF3460 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		82CF2A43A7100F086D7FCFDD /* VitalSnap */ = {
+			isa = PBXGroup;
+			children = (
+				D1D0524B025E57AFFF263442 /* App */,
+				E50F13E9B62B6AD88DB9F12B /* Camera */,
+				11D3DB8C4D3A0781BD4E7BFB /* OCR */,
+				44E0F2D87F3ED7EF15D9FD41 /* Health */,
+				28A008544C936628384F2DAC /* Storage */,
+				C71E237AED0167A15E00637D /* UI */,
+				AAE953452CCD6DDD91445CEA /* Resources */,
+				8D112346025269318A39D73A /* VitalSnap.entitlements */,
+			);
+			path = VitalSnap;
+			sourceTree = "<group>";
+		};
+		D1D0524B025E57AFFF263442 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				95BA6CD8B66709DA2BA5A509 /* VitalSnapApp.swift */,
+				B54250B0E16E8FD49A02F9AF /* AppModel.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		E50F13E9B62B6AD88DB9F12B /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				D3718B97459052CFF6B43CFE /* CameraSession.swift */,
+				29B68A6483DBA69BF50B742A /* CameraPreview.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		11D3DB8C4D3A0781BD4E7BFB /* OCR */ = {
+			isa = PBXGroup;
+			children = (
+				3C77F2CCA98137C77D95542D /* TextRecognizer.swift */,
+			);
+			path = OCR;
+			sourceTree = "<group>";
+		};
+		44E0F2D87F3ED7EF15D9FD41 /* Health */ = {
+			isa = PBXGroup;
+			children = (
+				A53504546E6F01CDB966B4B9 /* HealthStoreService.swift */,
+			);
+			path = Health;
+			sourceTree = "<group>";
+		};
+		28A008544C936628384F2DAC /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				B2211F4D150C214300A96C0E /* ReadingLogStore.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		C71E237AED0167A15E00637D /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				6D605DA520EFD186F896CEAA /* Theme.swift */,
+				4CB664E94D6BF6CA05C0F3C8 /* Components.swift */,
+				74B6AD96DF28B18CB73834D9 /* RootView.swift */,
+				72A95F0A160501BAE9F31D81 /* OnboardingView.swift */,
+				3B91D1D2E2A09F013789DC91 /* HomeView.swift */,
+				C523DE8B4A21AC5B623A8ECD /* ReviewView.swift */,
+				735F9485D44C7F33A933A7B2 /* CaptureView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		AAE953452CCD6DDD91445CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				31622F5DB5AF44890238D799 /* Assets.xcassets */,
+				06CABE0B2A16903D10B9D8EB /* Info.plist */,
+				7C9E2B87D7A18ED7042C360B /* PrivacyInfo.xcprivacy */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		547D009064F7C3F13BEF3460 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8F130059427912E2BD061561 /* VitalSnap.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		42AEFBAE01D2DFD981F7DA7D /* VitalSnap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 354589B28580510B6EC24620 /* Build configuration list for PBXNativeTarget "VitalSnap" */;
+			buildPhases = (
+				7A70D71C385290AF96BF1031 /* Sources */,
+				424153ED3CD079DB4DB459AF /* Frameworks */,
+				285BB1C1430063331E9F5DD0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VitalSnap;
+			packageProductDependencies = (
+				BD44A0773A5C71948B0D4A7B /* VitalSnapCore */,
+			);
+			productName = VitalSnap;
+			productReference = 8F130059427912E2BD061561 /* VitalSnap.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					42AEFBAE01D2DFD981F7DA7D = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 1F4E3D13C2320EDA50221924 /* Build configuration list for PBXProject "VitalSnap" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B9340614599AB78F485950C7;
+			packageReferences = (
+				5236A959CE52AFE1B35B905E /* XCLocalSwiftPackageReference "Packages/VitalSnapCore" */,
+			);
+			productRefGroup = 547D009064F7C3F13BEF3460 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				42AEFBAE01D2DFD981F7DA7D /* VitalSnap */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		285BB1C1430063331E9F5DD0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB249DB9D0FF833647E29581 /* Assets.xcassets in Resources */,
+				7506060A154BFBC166F7764F /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7A70D71C385290AF96BF1031 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1030666ED19FDEADFB1822D0 /* VitalSnapApp.swift in Sources */,
+				07056C13168604436A09F57A /* AppModel.swift in Sources */,
+				158D68EB14CA1937CC78166F /* CameraSession.swift in Sources */,
+				A90CEFC830129C988020AA7E /* CameraPreview.swift in Sources */,
+				F34A62373FDC3223FCD35B84 /* TextRecognizer.swift in Sources */,
+				99F5B7B0F0FA6DA5D95BACB9 /* HealthStoreService.swift in Sources */,
+				C6384C23B74F8188822C7C5B /* ReadingLogStore.swift in Sources */,
+				BF60D2E1309E5A3A77239E2E /* Theme.swift in Sources */,
+				8751EFBB1671B92531A4582C /* Components.swift in Sources */,
+				A4A03E9A8BF7FD5512F32211 /* RootView.swift in Sources */,
+				700E72EEA3A494CBCD4A50A3 /* OnboardingView.swift in Sources */,
+				0FD1AE1EE414C92080517360 /* HomeView.swift in Sources */,
+				EB93203B6177B83315AEF336 /* ReviewView.swift in Sources */,
+				59640E087B58293C5B20E3F6 /* CaptureView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		92E165A9035A603BE73D2E62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+
+			};
+			name = Debug;
+		};
+		E1D3BBA94590957B0374D6E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+
+			};
+			name = Release;
+		};
+		F22D2FFCC45240A8FF5EBE4A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VitalSnap/VitalSnap.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = VitalSnap/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.webnettricks.vitalsnap;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+
+			};
+			name = Debug;
+		};
+		FE4F802C632EAD717BA35062 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VitalSnap/VitalSnap.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = VitalSnap/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.webnettricks.vitalsnap;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1F4E3D13C2320EDA50221924 /* Build configuration list for PBXProject "VitalSnap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92E165A9035A603BE73D2E62 /* Debug */,
+				E1D3BBA94590957B0374D6E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		354589B28580510B6EC24620 /* Build configuration list for PBXNativeTarget "VitalSnap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F22D2FFCC45240A8FF5EBE4A /* Debug */,
+				FE4F802C632EAD717BA35062 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		5236A959CE52AFE1B35B905E /* XCLocalSwiftPackageReference "Packages/VitalSnapCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/VitalSnapCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BD44A0773A5C71948B0D4A7B /* VitalSnapCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5236A959CE52AFE1B35B905E /* XCLocalSwiftPackageReference "Packages/VitalSnapCore" */;
+			productName = VitalSnapCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+}
