@@ -30,23 +30,7 @@ struct CaptureView: View {
                     savedScreen(reading)
                 }
             }
-            .toolbar {
-                if case .camera = stage {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("Close") { dismiss() }
-                    }
-                }
-                if case .review = stage {
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button("Close") { dismiss() }
-                    }
-                }
-                if case .saved = stage {
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button("Done") { dismiss() }
-                    }
-                }
-            }
+            .id(stageToken)
         }
         .onAppear {
             if case .camera = stage {
@@ -56,6 +40,18 @@ struct CaptureView: View {
         .onDisappear { camera.stop() }
     }
 
+    /// Drops the camera preview when leaving that stage so its layer cannot keep eating taps.
+    private var stageToken: String {
+        switch stage {
+        case .camera:
+            return "camera"
+        case .review:
+            return "review"
+        case .saved:
+            return "saved"
+        }
+    }
+
     private var cameraScreen: some View {
         ZStack {
             Color.black.ignoresSafeArea()
@@ -63,6 +59,7 @@ struct CaptureView: View {
             case .ready:
                 CameraPreview(session: camera.session)
                     .ignoresSafeArea()
+                    .allowsHitTesting(false)
                 guide
             case .denied:
                 permissionMessage(
@@ -77,14 +74,14 @@ struct CaptureView: View {
                     showsSettings: false
                 )
             case .unknown:
-                ProgressView("Waiting for camera access…")
+                ProgressView("Waiting for camera access\u2026")
                     .tint(.white)
                     .foregroundStyle(.white)
             }
 
             if isWorking {
                 Color.black.opacity(0.45).ignoresSafeArea()
-                ProgressView("Reading the display…")
+                ProgressView("Reading the display\u2026")
                     .padding(24)
                     .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             }
@@ -97,6 +94,12 @@ struct CaptureView: View {
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarColorScheme(.dark, for: .navigationBar)
         .preferredColorScheme(.dark)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button("Close") { dismiss() }
+                    .accessibilityIdentifier("capture.close")
+            }
+        }
     }
 
     private var guide: some View {
@@ -209,9 +212,18 @@ struct CaptureView: View {
             healthAvailable: model.health.isAvailable,
             isSaving: isSaving,
             saveError: saveError,
-            onRetake: retake,
             onSave: { Task { await save() } }
         )
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button("Retake", action: retake)
+                    .accessibilityIdentifier("review.retake")
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Close") { dismiss() }
+                    .accessibilityIdentifier("review.close")
+            }
+        }
     }
 
     private var reviewDraft: Binding<ReadingDraft> {
@@ -248,7 +260,7 @@ struct CaptureView: View {
                 .padding(.horizontal, 12)
             Spacer()
             if !reading.savedToHealth && model.health.isAvailable {
-                PrimaryButton(title: isSaving ? "Saving…" : "Try Apple Health again", isEnabled: !isSaving) {
+                PrimaryButton(title: isSaving ? "Saving\u2026" : "Try Apple Health again", isEnabled: !isSaving) {
                     Task { await retryHealth(reading) }
                 }
             }
@@ -263,8 +275,15 @@ struct CaptureView: View {
         .background(Theme.paper)
         .navigationTitle("Saved")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Done") { dismiss() }
+                    .accessibilityIdentifier("capture.done")
+            }
+        }
     }
 
+    @MainActor
     private func capture() async {
         captureError = nil
         isWorking = true
@@ -277,6 +296,7 @@ struct CaptureView: View {
         }
     }
 
+    @MainActor
     private func loadPhoto(_ item: PhotosPickerItem) async {
         isWorking = true
         defer { isWorking = false }
@@ -292,6 +312,7 @@ struct CaptureView: View {
         }
     }
 
+    @MainActor
     private func recognize(_ image: UIImage) async {
         isWorking = true
         defer { isWorking = false }
@@ -329,6 +350,7 @@ struct CaptureView: View {
         camera.prepare()
     }
 
+    @MainActor
     private func save() async {
         guard case .review(_, _, let draft) = stage else { return }
         guard ReadingValidator.validate(draft).canSave else { return }
@@ -360,6 +382,7 @@ struct CaptureView: View {
         }
     }
 
+    @MainActor
     private func retryHealth(_ reading: LoggedReading) async {
         let draft = draft(from: reading)
         isSaving = true
