@@ -111,7 +111,7 @@ struct ReviewView: View {
         .safeAreaInset(edge: .bottom) {
             VStack(spacing: 8) {
                 PrimaryButton(
-                    title: isSaving ? "Saving\u2026" : (healthAvailable ? "Save to Apple Health" : "Save on this iPhone"),
+                    title: isSaving ? "Saving…" : (healthAvailable ? "Save to Apple Health" : "Save on this iPhone"),
                     systemImage: healthAvailable ? "heart.fill" : "iphone",
                     isEnabled: validation.canSave && !isSaving,
                     action: onSave
