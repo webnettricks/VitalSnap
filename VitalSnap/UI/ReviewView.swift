@@ -9,7 +9,6 @@ struct ReviewView: View {
     var healthAvailable: Bool
     var isSaving: Bool
     var saveError: String?
-    var onRetake: () -> Void
     var onSave: () -> Void
 
     @FocusState private var focused: Bool
@@ -25,9 +24,11 @@ struct ReviewView: View {
                     Image(uiImage: image)
                         .resizable()
                         .scaledToFill()
-                        .frame(height: 160)
                         .frame(maxWidth: .infinity)
+                        .frame(height: 160)
+                        .clipped()
                         .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                        .allowsHitTesting(false)
                         .accessibilityLabel("Photo of the display")
                 }
 
@@ -102,9 +103,6 @@ struct ReviewView: View {
         .navigationTitle(draft.kind.title)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-                Button("Retake", action: onRetake)
-            }
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
                 Button("Done") { focused = false }
@@ -113,7 +111,7 @@ struct ReviewView: View {
         .safeAreaInset(edge: .bottom) {
             VStack(spacing: 8) {
                 PrimaryButton(
-                    title: isSaving ? "Saving…" : (healthAvailable ? "Save to Apple Health" : "Save on this iPhone"),
+                    title: isSaving ? "Saving\u2026" : (healthAvailable ? "Save to Apple Health" : "Save on this iPhone"),
                     systemImage: healthAvailable ? "heart.fill" : "iphone",
                     isEnabled: validation.canSave && !isSaving,
                     action: onSave
@@ -130,6 +128,7 @@ struct ReviewView: View {
             .padding(.top, 8)
             .padding(.bottom, 12)
             .background(Theme.paper.opacity(0.96))
+            .contentShape(Rectangle())
         }
         .onChange(of: draft.kind) { previous, current in
             guard previous != current, !lines.isEmpty else { return }
