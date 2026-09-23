@@ -64,7 +64,7 @@ struct CaptureView: View {
             case .denied:
                 permissionMessage(
                     title: "Camera access is off",
-                    message: "VitalSnap needs the camera to photograph a scale or cuff. You can also choose an existing photo or type the numbers.",
+                    message: "My Health Numbers needs the camera to photograph a scale or cuff. You can also choose an existing photo or type the numbers.",
                     showsSettings: true
                 )
             case .unavailable:
