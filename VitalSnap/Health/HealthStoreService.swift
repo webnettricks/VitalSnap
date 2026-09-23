@@ -55,13 +55,17 @@ final class HealthStoreService {
         }
     }
 
+    /// Quantity types only. HealthKit throws
+    /// "Authorization to share the following types is disallowed:
+    /// HKCorrelationTypeIdentifierBloodPressure" if this set includes
+    /// `HKCorrelationType(.bloodPressure)`. Share access for systolic and
+    /// diastolic is enough; `saveBloodPressure` can still write the correlation.
     private var shareTypes: Set<HKSampleType> {
         [
             HKQuantityType(.bodyMass),
             HKQuantityType(.bloodPressureSystolic),
             HKQuantityType(.bloodPressureDiastolic),
             HKQuantityType(.heartRate),
-            HKCorrelationType(.bloodPressure),
         ]
     }
 
