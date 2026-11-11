@@ -8,7 +8,7 @@ struct OnboardingView: View {
         Page(
             symbol: "camera.viewfinder",
             title: "Photograph the display",
-            message: "Point the camera at a digital scale or blood pressure monitor. VitalSnap reads the digits on this iPhone. The photo is not uploaded."
+            message: "Point the camera at a digital scale or blood pressure monitor. My Health Numbers reads the digits on this iPhone. The photo is not uploaded."
         ),
         Page(
             symbol: "checkmark.circle",
@@ -18,16 +18,16 @@ struct OnboardingView: View {
         Page(
             symbol: "heart.text.square",
             title: "Keep it in Apple Health",
-            message: "When you confirm, VitalSnap writes weight or blood pressure into the Health app. It does not interpret the reading or offer a diagnosis."
+            message: "When you confirm, My Health Numbers writes weight or blood pressure into the Health app. It does not interpret the reading or offer a diagnosis."
         ),
     ]
 
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("VITALSNAP")
+                Text("MY HEALTH NUMBERS")
                     .font(.caption.weight(.semibold))
-                    .tracking(1.8)
+                    .tracking(1.1)
                     .foregroundStyle(Theme.green)
                 Spacer()
             }

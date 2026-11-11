@@ -25,7 +25,7 @@ Recognition uses Apple's Vision framework (`VNRecognizeTextRequest`). Nothing is
 5. Connect an iPhone running iOS 17 or later, select it as the run destination, and press Run.
 6. On first launch, read the short introduction. Camera access is requested when you take a photo. Apple Health is requested when you save.
 7. Photograph a scale or cuff, or tap Sample to walk through a known reading. Check the numbers, edit anything that is wrong, then save.
-8. In the Health app, look under Browse, Body Measurements, Weight, or under Heart, Blood Pressure. VitalSnap is the source. Samples are marked as entered by you, because you confirmed them.
+8. In the Health app, look under Browse, Body Measurements, Weight, or under Heart, Blood Pressure. My Health Numbers is the source. Samples are marked as entered by you, because you confirmed them.
 
 The first install on a device may ask you to trust the developer certificate in Settings, General, VPN & Device Management.
 
@@ -38,7 +38,7 @@ The project ships as `com.webnettricks.vitalsnap`.
 3. Change **Product Bundle Identifier**.
 4. Let Xcode register the new App ID. The App ID must include the HealthKit capability, which automatic signing does for a paid team.
 
-The display name is VitalSnap. Change `CFBundleDisplayName` in `VitalSnap/Resources/Info.plist` if you want a different name on the Home Screen.
+The Home Screen name is My Health Numbers (`CFBundleDisplayName` in `VitalSnap/Resources/Info.plist`). The Xcode target stays VitalSnap, and the bundle identifier stays `com.webnettricks.vitalsnap`.
 
 ## Project layout
 

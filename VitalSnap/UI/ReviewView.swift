@@ -93,7 +93,7 @@ struct ReviewView: View {
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(Theme.ink)
 
-                Text("VitalSnap saves what you confirm. It does not decide whether a reading is healthy.")
+                Text("My Health Numbers saves what you confirm. It does not decide whether a reading is healthy.")
                     .font(.footnote)
                     .foregroundStyle(Theme.secondary)
             }
@@ -119,7 +119,7 @@ struct ReviewView: View {
                 .accessibilityIdentifier("review.save")
                 Text(healthAvailable
                      ? "Apple Health will ask permission the first time you save."
-                     : "Apple Health is not available on this device. The reading stays in VitalSnap.")
+                     : "Apple Health is not available on this device. The reading stays in My Health Numbers.")
                     .font(.footnote)
                     .foregroundStyle(Theme.secondary)
                     .multilineTextAlignment(.center)

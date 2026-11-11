@@ -65,13 +65,13 @@ struct HomeView: View {
                 } header: {
                     Text("On this iPhone")
                 } footer: {
-                    Text("Deleting a row removes it from VitalSnap only. Apple Health keeps its own copy.")
+                    Text("Deleting a row removes it from My Health Numbers only. Apple Health keeps its own copy.")
                 }
             }
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
             .background(Theme.paper)
-            .navigationTitle("VitalSnap")
+            .navigationTitle("My Health Numbers")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -79,7 +79,7 @@ struct HomeView: View {
                     } label: {
                         Image(systemName: "info.circle")
                     }
-                    .accessibilityLabel("About VitalSnap")
+                    .accessibilityLabel("About My Health Numbers")
                 }
             }
         }
@@ -145,11 +145,11 @@ struct AboutView: View {
                 VStack(alignment: .leading, spacing: 18) {
                     aboutBlock(
                         title: "What it does",
-                        text: "VitalSnap photographs a scale or blood pressure display, reads the digits on this iPhone, and asks you to confirm them before saving."
+                        text: "My Health Numbers photographs a scale or blood pressure display, reads the digits on this iPhone, and asks you to confirm them before saving."
                     )
                     aboutBlock(
                         title: "Where readings go",
-                        text: "Confirmed readings are written to Apple Health as body mass, or as a blood pressure correlation with an optional heart rate. They are also listed in VitalSnap. Nothing is sent to a server."
+                        text: "Confirmed readings are written to Apple Health as body mass, or as a blood pressure correlation with an optional heart rate. They are also listed in My Health Numbers. Nothing is sent to a server."
                     )
                     aboutBlock(
                         title: "If a number looks wrong",
@@ -157,7 +157,7 @@ struct AboutView: View {
                     )
                     aboutBlock(
                         title: "Not a medical device",
-                        text: "VitalSnap does not diagnose, grade, or interpret a reading. It stores the numbers you confirm."
+                        text: "My Health Numbers does not diagnose, grade, or interpret a reading. It stores the numbers you confirm."
                     )
                 }
                 .padding(24)
